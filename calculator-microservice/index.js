@@ -106,6 +106,50 @@ app.get('/divide', (req, res) => {
     res.send(`Result: ${result}`);
 });
 
+// Exponentiation Route
+app.get('/power', (req, res) => {
+    const num1 = parseFloat(req.query.num1);
+    const num2 = parseFloat(req.query.num2);
+
+    if (isNaN(num1) || isNaN(num2)) {
+        logger.error('Invalid input: Non-numeric input provided');
+        return res.status(400).send('Invalid input');
+    }
+
+    const result = Math.pow(num1, num2);
+    logger.info(`New exponentiation operation requested: ${num1} ^ ${num2}`);
+    res.send(`Result: ${result}`);
+});
+
+// Square Root Route
+app.get('/sqrt', (req, res) => {
+    const num = parseFloat(req.query.num);
+
+    if (isNaN(num) || num < 0) {
+        logger.error('Invalid input: Negative number for square root');
+        return res.status(400).send('Cannot calculate square root of a negative number');
+    }
+
+    const result = Math.sqrt(num);
+    logger.info(`New square root operation requested: sqrt(${num})`);
+    res.send(`Result: ${result}`);
+});
+
+// Modulo Route
+app.get('/mod', (req, res) => {
+    const num1 = parseFloat(req.query.num1);
+    const num2 = parseFloat(req.query.num2);
+
+    if (isNaN(num1) || isNaN(num2)) {
+        logger.error('Invalid input: Non-numeric input provided');
+        return res.status(400).send('Invalid input');
+    }
+
+    const result = num1 % num2;
+    logger.info(`New modulo operation requested: ${num1} % ${num2}`);
+    res.send(`Result: ${result}`);
+});
+
 // Start the server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
